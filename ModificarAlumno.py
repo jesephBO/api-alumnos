@@ -2,9 +2,9 @@ import boto3
 
 def lambda_handler(event, context):
     print(event)
-    tenant_id = event['path']['tenant_id']
-    alumno_id = event['path']['alumno_id']
-    nuevos_datos = event['body'].get('alumno_datos', event['body'])
+    tenant_id = event['body']['tenant_id']
+    alumno_id = event['body']['alumno_id']
+    nuevos_datos = event['body']['alumno_datos'] 
     
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('t_alumnos')
@@ -41,6 +41,7 @@ def lambda_handler(event, context):
         },
         ReturnValues="UPDATED_NEW"
     )
+    print(response)
     
     return {
         'statusCode': 200,

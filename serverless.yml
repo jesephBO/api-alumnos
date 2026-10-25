@@ -40,7 +40,7 @@ functions:
     handler: ModificarAlumno.lambda_handler
     events:
       - http:
-          path: /alumnos/{tenant_id}/{alumno_id}
+          path: /alumnos/modificar
           method: put
           cors: true
           integration: lambda
@@ -49,7 +49,7 @@ functions:
     handler: EliminarAlumno.lambda_handler
     events:
       - http:
-          path: /alumnos/{tenant_id}/{alumno_id}
+          path: /alumnos/eliminar
           method: delete
           cors: true
           integration: lambda
