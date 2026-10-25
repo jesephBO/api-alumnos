@@ -1,10 +1,10 @@
-import boto3  # import Boto3
+import boto3
 
 def lambda_handler(event, context):
     print(event)
-    tenant_id = event['body']['tenant_id']
-    alumno_id = event['body']['alumno_id']
-    nuevos_datos = event['body']['alumno_datos']
+    tenant_id = event['path']['tenant_id']
+    alumno_id = event['path']['alumno_id']
+    nuevos_datos = event['body'].get('alumno_datos', event['body'])
     
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('t_alumnos')
@@ -15,7 +15,6 @@ def lambda_handler(event, context):
             'alumno_id': alumno_id
         }
     )
-    
     alumno_existente = response_get.get('Item', None)
     
     if not alumno_existente:
@@ -25,7 +24,6 @@ def lambda_handler(event, context):
         }
     
     datos_actuales = alumno_existente.get('alumno_datos', {})
-    
     for key, value in nuevos_datos.items():
         if isinstance(value, dict) and key in datos_actuales and isinstance(datos_actuales[key], dict):
             datos_actuales[key].update(value)
@@ -43,8 +41,6 @@ def lambda_handler(event, context):
         },
         ReturnValues="UPDATED_NEW"
     )
-    
-    print(response)
     
     return {
         'statusCode': 200,
