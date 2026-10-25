@@ -1,6 +1,7 @@
-import boto3 
+import boto3
 
 def lambda_handler(event, context):
+    # Entrada (json)
     print(event)
     tenant_id = event['body']['tenant_id']
     alumno_id = event['body']['alumno_id']

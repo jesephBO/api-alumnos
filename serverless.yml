@@ -41,7 +41,7 @@ functions:
     events:
       - http:
           path: /alumnos/modificar
-          method: put
+          method: post
           cors: true
           integration: lambda
 
@@ -50,6 +50,6 @@ functions:
     events:
       - http:
           path: /alumnos/eliminar
-          method: delete
+          method: post
           cors: true
           integration: lambda

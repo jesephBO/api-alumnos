@@ -7,7 +7,6 @@ def lambda_handler(event, context):
     
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('t_alumnos')
-    
     response = table.delete_item(
         Key={
             'tenant_id': tenant_id,
